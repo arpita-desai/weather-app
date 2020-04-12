@@ -7,16 +7,16 @@ $("#searchBtn").on("click", function(){
     searchWeather(searchCity);
 });
 
-$("#resetBtn").on("click", function(e){
+ $("#resetBtn").on("click", function(e){
     e.preventDefault();
     $("#today").empty();
     $("#forecast").empty();
-    localStorage.removeItem("cityList");
+   localStorage.removeItem("cityList");
 });
 
 function createRow(text){
-    var list = $("<li>").addClass("list-group-item list-group-item-action").text(text);
-    $(".cities").append(list);
+    var li = $("<li>").addClass("list-group-item list-group-item-action").text(text);
+    $(".cities").append(li);
 }
 
 $(".cities").on("click", "li", function(){
@@ -29,7 +29,7 @@ function searchWeather(searchCity){
         url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
         method: "GET",
        
-    }).then( function(data){
+    }).then(function(data){
         
         if(cityList.indexOf(searchCity) === -1){
              cityList.push(searchCity);
@@ -40,9 +40,10 @@ function searchWeather(searchCity){
 
         var title = $("<h3>").addClass("card-title").text(data.name + "-" + new Date().toLocaleDateString());
         var card = $("<div>").addClass("card");
-        var wind = $("<p>").addClass("card-text").text("Wind Speed:" + data.wind.speed + " MPH");
-        var humid = $("<p>").addClass("card-text").text("Humidity:" + data.main.humidity + " %");
-        var temp = $("<p>").addClass("card-text").text("Temperature:" + data.main.temp + " F");
+        var wind = $("<p>").addClass("card-text").text("Wind Speed - " + data.wind.speed + " MPH");
+        var humid = $("<p>").addClass("card-text").text("Humidity - " + data.main.humidity + " %");
+        var fer =  (data.main.temp - 273.15) * 1.80 + 32;
+        var temp = $("<p>").addClass("card-text").text("Temperature - " + fer + " F");
         var cardBody = $("<div>").addClass("card-body");
         var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
@@ -72,8 +73,9 @@ function getForecast(searchCity){
             var body = $("<div>").addClass("card-body p-2");
             var title = $("<h3>").addClass("card-title").text(new Date(data.list[i].dt_txt).toLocaleDateString());
             var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
-            var t = $("<p>").addClass("card-text").text("Temp: " + data.list[i].main.temp_max + "f");
-            var h = $("<p>").addClass("card-text").text("Humidity " + data.list[i].main.humidity + "%");
+            var fer1 =  (data.list[i].main.temp - 273.15) * 1.80 + 32;
+            var t = $("<p>").addClass("card-text").text("Temp - " + fer1 + "f");
+            var h = $("<p>").addClass("card-text").text("Humidity - " + data.list[i].main.humidity + "%");
 
             col.append(card.append(body.append(title, img, t, h)));
             $("#forecast .row").append(col);
@@ -107,7 +109,7 @@ $.ajax({
 
 }
 
-var cityList = JSON.parse(localStorage.getItem("cityList"));
+var cityList = JSON.parse(localStorage.getItem("cityList")) || [];
 
 if(cityList.length > 0){
     searchWeather(cityList[cityList.length-1]);
