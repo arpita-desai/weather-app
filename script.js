@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 //For button click event, get the city from here
 $("#searchBtn").on("click", function(){
-    var searchCity = $("#searchCity").val();
+    var searchCity = $("#searchCity").val().toUpperCase();
     $("#searchCity").val("");
     searchWeather(searchCity);
 });
@@ -11,11 +11,11 @@ $("#resetBtn").on("click", function(e){
     e.preventDefault();
     $("#today").empty();
     $("#forecast").empty();
-    localStorage.removeItem(cityList);
+    localStorage.removeItem("cityList");
 });
 
 function createRow(text){
-    var list = $("<li>").addClass("list-group-item list-group-item-action").text(text.toUpperCase());
+    var list = $("<li>").addClass("list-group-item list-group-item-action").text(text);
     $(".cities").append(list);
 }
 
