@@ -107,7 +107,7 @@ $.ajax({
 
 }
 
-var cityList = JSON.parse(localStorage.getItem("cityList")) || [];
+var cityList = JSON.parse(localStorage.getItem("cityList"));
 
 if(cityList.length > 0){
     searchWeather(cityList[cityList.length-1]);
