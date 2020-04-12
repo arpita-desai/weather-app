@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather app for practice</title>
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+    crossorigin="anonymous">
+</head>
+<body>
+    <header class="container-fluid text-center text-white bg-dark">
+        <h1>Weather Dashboard</h1>
+      </header>
+   
+    <div class="container">
+        <div class="row">
+            <aside class="col-sm-3 bg-light">
+                <h3>Search for a city:</h3>
+                <div class="form-inline form-group">
+                    <input id = "searchCity" type="text" class="form-control" />
+                    <button id = "searchBtn" type="button" class="btn btn-light">Search</button>
+                    <button id = "resetBtn" type="button" class="btn btn-light">Reset</button>
+
+                </div>
+
+                <ul id = "set" class="list-group cities"></ul>
+            </aside>
+            <div class="col-sm-9">
+                <div id = "today"></div>
+                <div id = "forecast"></div> 
+            </div>
+        </div>    
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
