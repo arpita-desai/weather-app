@@ -11,8 +11,6 @@ $("#resetBtn").on("click", function(e){
     e.preventDefault();
     $("#today").empty();
     $("#forecast").empty();
-    //$("#set").html("");
-   
     localStorage.removeItem(cityList);
 });
 
@@ -30,7 +28,7 @@ function searchWeather(searchCity){
     $.ajax({
         url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
         method: "GET",
-        datatype: "json",
+       
     }).then( function(data){
         
         if(cityList.indexOf(searchCity) === -1){
@@ -62,13 +60,12 @@ function getForecast(searchCity){
     $.ajax({
         url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
         method: "GET",
-        datatype: "json",
-        success: function(data){
+    }).then(function(data){
 
         $("#forecast").html("<h3> 5-Days Weather Forecast </h3>").append("<div class=\"row\">");
         for (var i = 0; i < data.list.length; i++) {
             
-            if(data.list[i].dt_txt.indexOf("15:00:00") !== -1){
+            if(data.list[i].dt_txt.indexOf("12:00:00") !== -1){
             
             var col = $("<div>").addClass("col-md-2");
             var card = $("<div>").addClass("card bg-primary text-white");
@@ -85,8 +82,8 @@ function getForecast(searchCity){
 
         }
 
-    }
-});    
+    });
+    
 }
   
 function getUVIndex(lat, lon){
@@ -94,8 +91,7 @@ function getUVIndex(lat, lon){
 $.ajax({
     url: "http://api.openweathermap.org/data/2.5/uvi?appid=95af7924bf5f9e3f588e6be9da8f43cd&lat=" + lat + "&lon=" + lon,
     method: "GET",
-    datatype: "json",
-    success: function(data){
+}).then(function(data){
     var uv = $("<p>").text("UV Index: ");
     var btn = $("<span>").addClass("btn btn-sm").text(data.value);
 
@@ -107,8 +103,8 @@ $.ajax({
         btn.addClass("btn-danger");
     }
     $("#today .card-body").append(uv.append(btn));
-}
 });
+
 }
 
 var cityList = JSON.parse(localStorage.getItem("cityList")) || [];
