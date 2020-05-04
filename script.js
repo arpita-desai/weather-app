@@ -26,7 +26,7 @@ $(".cities").on("click", "li", function(){
 
 function searchWeather(searchCity){
     $.ajax({
-        url: "http://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
+        url: "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
         method: "GET",
        
     }).then(function(data){
@@ -45,7 +45,7 @@ function searchWeather(searchCity){
         var fer =  (data.main.temp - 273.15) * 1.80 + 32;
         var temp = $("<p>").addClass("card-text").text("Temperature - " + fer + " F");
         var cardBody = $("<div>").addClass("card-body");
-        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
         title.append(img);
         cardBody.append(title, temp, humid, wind);
@@ -59,7 +59,7 @@ function searchWeather(searchCity){
 
 function getForecast(searchCity){
     $.ajax({
-        url: "http://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
+        url: "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + "&appid=95af7924bf5f9e3f588e6be9da8f43cd",
         method: "GET",
     }).then(function(data){
 
@@ -72,7 +72,7 @@ function getForecast(searchCity){
             var card = $("<div>").addClass("card bg-primary text-white");
             var body = $("<div>").addClass("card-body p-2");
             var title = $("<h3>").addClass("card-title").text(new Date(data.list[i].dt_txt).toLocaleDateString());
-            var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
+            var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");
             var fer1 =  (data.list[i].main.temp - 273.15) * 1.80 + 32;
             var t = $("<p>").addClass("card-text").text("Temp - " + fer1 + "f");
             var h = $("<p>").addClass("card-text").text("Humidity - " + data.list[i].main.humidity + "%");
@@ -91,7 +91,7 @@ function getForecast(searchCity){
 function getUVIndex(lat, lon){
 
 $.ajax({
-    url: "http://api.openweathermap.org/data/2.5/uvi?appid=95af7924bf5f9e3f588e6be9da8f43cd&lat=" + lat + "&lon=" + lon,
+    url: "https://api.openweathermap.org/data/2.5/uvi?appid=95af7924bf5f9e3f588e6be9da8f43cd&lat=" + lat + "&lon=" + lon,
     method: "GET",
 }).then(function(data){
     var uv = $("<p>").text("UV Index: ");
